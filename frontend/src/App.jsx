@@ -1,16 +1,20 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home.jsx";
-import Workouts from "./pages/Workouts.jsx";
-import History from "./pages/History.jsx";
-import "./styles.css";
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Workouts from "./pages/Workouts";
+import History from "./pages/History";
 
 function App() {
+  const [workouts, setWorkouts] = useState([]);
+
   return (
     <Router>
+      <Navbar />
       <Routes>
-        <Route path="/" element={<Home></Home>} />
-        <Route path="/workouts" element={<Workouts></Workouts>} />
-        <Route path="/history" element={<History></History>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/workouts" element={<Workouts />} />
+        <Route path="/history" element={<History workouts={workouts} />} />
       </Routes>
     </Router>
   );

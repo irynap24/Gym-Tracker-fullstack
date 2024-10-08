@@ -1,11 +1,8 @@
-import Navabar from "../components/Navbar";
-import WorkoutSummary from "../components/WorkoutSummary";
-
 function Home() {
   return (
     <div>
-      <Navabar />
-      <WorkoutSummary />
+      <h2>Welcome to the Gym Workout Tracker</h2>
+      <p>Track your workouts, set goals, and view your progress.</p>
     </div>
   );
 }
