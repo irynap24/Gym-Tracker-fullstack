@@ -3,6 +3,7 @@ import WorkoutForm from "../components/WorkoutForm";
 
 function Workouts() {
   const [workouts, setWorkouts] = useState([]);
+
   const addWorkout = (newWorkout) => {
     setWorkouts([...workouts, newWorkout]);
   };
@@ -16,7 +17,7 @@ function Workouts() {
       <ul>
         {workouts.map((workout, index) => (
           <li key={index}>
-            <strong>{workout.type}</strong> - {workout.duration} mins on{" "}
+            <strong>{workout.type}</strong> - {workout.duration} minutes on{" "}
             {workout.date}
           </li>
         ))}
@@ -24,4 +25,5 @@ function Workouts() {
     </div>
   );
 }
+
 export default Workouts;

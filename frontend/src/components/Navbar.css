@@ -1,0 +1,56 @@
+/* General styling for the navbar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #282c34;
+  padding: 1rem 2rem;
+  color: white;
+}
+
+/* Navbar logo/title */
+nav h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #61dafb;
+  margin: 0;
+}
+
+/* Navbar links */
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* list items */
+nav ul li {
+  margin-left: 1.5rem;
+}
+
+/* links */
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+/* Hover effect for links */
+nav ul li a:hover {
+  color: #61dafb;
+}
+
+/* Responsive for small screens */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav ul li {
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+  }
+}
