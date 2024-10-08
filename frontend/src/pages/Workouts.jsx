@@ -1,5 +1,4 @@
-function Home() {
-  return;
-  <div> Workouts Database </div>;
+function Workouts() {
+  return <div> Workouts Database </div>;
 }
 export default Workouts;

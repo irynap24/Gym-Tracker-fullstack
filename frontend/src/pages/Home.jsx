@@ -1,5 +1,13 @@
+import Navabar from "../components/Navbar";
+import WorkoutSummary from "../components/WorkoutSummary";
+
 function Home() {
-  return;
-  <div>Welcome to LiftLog</div>;
+  return (
+    <div>
+      <Navabar />
+      <WorkoutSummary />
+    </div>
+  );
 }
+
 export default Home;
