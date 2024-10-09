@@ -1,9 +1,13 @@
 /* General styling for the navbar */
 nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #282c34;
+  background-color: #282c347a;
   padding: 1rem 2rem;
   color: white;
 }
@@ -22,11 +26,13 @@ nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  gap: 1rem;
 }
 
 /* list items */
 nav ul li {
   margin-left: 1.5rem;
+  display: inline;
 }
 
 /* links */
@@ -53,4 +59,8 @@ nav ul li a:hover {
     margin-left: 0;
     margin-bottom: 0.5rem;
   }
+}
+
+body {
+  padding-top: 60px;
 }

@@ -11,7 +11,7 @@ body {
   align-items: center;
   min-height: 100vh;
   background: url("C:\Users\Iryna\Desktop\gym-fullstack\frontend\public\5279144.jpg")
-    no-repeat; /* Update the path to your background image */
+    no-repeat;
   background-size: cover;
   background-position: center;
 }
