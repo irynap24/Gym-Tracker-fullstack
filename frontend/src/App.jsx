@@ -10,7 +10,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Wrap routes with Layout where you want the navbar */}
         <Route
           path="/"
           element={
@@ -28,7 +27,6 @@ function App() {
           }
         />
 
-        {/* For login and register, you can choose if you want to include the navbar */}
         <Route
           path="/login"
           element={

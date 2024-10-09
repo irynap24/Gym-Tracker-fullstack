@@ -1,6 +1,5 @@
 import React from "react";
-
-import "./Login.css"; //
+import "./Login.css";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -9,6 +8,7 @@ function Login() {
   const handleRegisterClick = () => {
     navigate("/register");
   };
+
   return (
     <div className="wrapper">
       <form action="">
@@ -21,21 +21,17 @@ function Login() {
           <input type="password" placeholder="Password" required />
           <i className="bx bxs-lock-alt"></i>
         </div>
-        <div className="remember-forgot">
-          <label>
-            <input type="checkbox" /> Remember Me
-          </label>
-          <a href="#">Forgot Password</a>
+        <div className="login-link">
+          <button type="submit" className="login-btn">
+            Login
+          </button>
         </div>
-        <button type="submit" className="btn">
-          Login
-        </button>
         <div className="register-link">
           <p>
             Don't have an account?{" "}
-            <button onClick={handleRegisterClick} className="register-btn">
+            <span onClick={handleRegisterClick} className="register-text">
               Register
-            </button>
+            </span>
           </p>
         </div>
       </form>
