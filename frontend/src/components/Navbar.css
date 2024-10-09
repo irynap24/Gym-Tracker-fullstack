@@ -33,6 +33,8 @@ nav ul {
 nav ul li {
   margin-left: 1.5rem;
   display: inline;
+  display: flex;
+  align-items: center;
 }
 
 /* links */
@@ -46,6 +48,40 @@ nav ul li a {
 /* Hover effect for links */
 nav ul li a:hover {
   color: #61dafb;
+}
+
+/* Responsive for small screens */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav ul li {
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+  }
+}
+
+body {
+  padding-top: 60px;
+}
+.logout-btn {
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+.logout-btn:hover {
+  color: #61dafb;
+}
+
+nav ul li .logout-btn {
+  display: inline-flex;
+  align-items: center;
 }
 
 /* Responsive for small screens */

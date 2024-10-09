@@ -39,7 +39,9 @@ function Navbar() {
         )}
         {isLoggedIn ? (
           <li>
-            <button onClick={() => auth.signOut()}>Logout</button>
+            <button className="logout-btn" onClick={() => auth.signOut()}>
+              Logout
+            </button>
           </li>
         ) : (
           <li>
