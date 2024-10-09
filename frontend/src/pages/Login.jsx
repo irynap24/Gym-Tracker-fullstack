@@ -1,24 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import axios from "axios";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleRegisterClick = () => {
-    navigate("/register");
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log("User logged in:", userCredential.user);
+      navigate("/workouts");
+    } catch (error) {
+      console.error("Login error:", error.message);
+    }
   };
 
   return (
     <div className="wrapper">
-      <form action="">
+      <form onSubmit={handleLogin}>
         <h1>Login</h1>
         <div className="input-box">
-          <input type="text" placeholder="Username" required />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
           <i className="bx bxs-user"></i>
         </div>
         <div className="input-box">
-          <input type="password" placeholder="Password" required />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
           <i className="bx bxs-lock-alt"></i>
         </div>
         <div className="login-link">
@@ -29,7 +58,10 @@ function Login() {
         <div className="register-link">
           <p>
             Don't have an account?{" "}
-            <span onClick={handleRegisterClick} className="register-text">
+            <span
+              onClick={() => navigate("/register")}
+              className="register-text"
+            >
               Register
             </span>
           </p>
