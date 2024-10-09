@@ -1,3 +1,5 @@
+// A form for logging new workouts with fields for exercise type, sets, reps, and weights.
+
 import { useState } from "react";
 
 function WorkoutForm({ addWorkout }) {

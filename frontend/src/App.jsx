@@ -3,6 +3,8 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Workouts from "./pages/Workouts"; // Ensure Workouts component is imported
 import History from "./pages/History";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -10,9 +12,10 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/workouts" element={<Workouts />} />{" "}
-        {/* Route for Workouts */}
+        <Route path="/workouts" element={<Workouts />} />
         <Route path="/history" element={<History />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="register" element={<Register />} />
       </Routes>
     </Router>
   );

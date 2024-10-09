@@ -1,3 +1,4 @@
+// Contains links to Home, Workouts, History, Login, and Register.
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
@@ -14,6 +15,12 @@ function Navbar() {
         </li>
         <li>
           <Link to="/history">History</Link>
+        </li>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <Link to="/register">Register</Link>
         </li>
       </ul>
     </nav>
