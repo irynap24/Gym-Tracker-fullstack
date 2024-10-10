@@ -10,10 +10,10 @@ function Register() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    // username: "",
     email: "",
     password: "",
   });
+  const [passwordError, setPasswordError] = useState("");
 
   const navigate = useNavigate();
 
@@ -22,9 +22,31 @@ function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Password validation function
+  const validatePassword = (password) => {
+    const minLength = 6;
+    const maxLength = 16;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,16}$/;
+
+    if (password.length < minLength || password.length > maxLength) {
+      return `Password must be between ${minLength} and ${maxLength} characters.`;
+    } else if (!passwordRegex.test(password)) {
+      return "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.";
+    }
+    return "";
+  };
+
   // Handle form submission
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    // Validate password before proceeding
+    const passwordValidationMessage = validatePassword(formData.password);
+    if (passwordValidationMessage) {
+      setPasswordError(passwordValidationMessage);
+      return;
+    }
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -32,6 +54,8 @@ function Register() {
         formData.password
       );
       console.log("User registered:", userCredential.user);
+
+      // Navigate to login after successful registration
       navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error.message);
@@ -65,16 +89,6 @@ function Register() {
             />
           </div>
         </div>
-        {/* <div className="input-box">
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            required
-            value={formData.username}
-            onChange={handleChange}
-          />
-        </div> */}
         <div className="input-box">
           <input
             type="email"
@@ -95,6 +109,10 @@ function Register() {
             onChange={handleChange}
           />
         </div>
+
+        {/* Show password error if validation fails */}
+        {passwordError && <p style={{ color: "white" }}>{passwordError}</p>}
+
         <button type="submit" className="btn">
           Register
         </button>
