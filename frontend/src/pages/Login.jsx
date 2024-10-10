@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import axios from "axios";
+import { UserContext } from "../contexts/UserContext"; // Import UserContext
 
 function Login() {
+  const { setUserId } = useContext(UserContext); // Access setUserId from context
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -20,7 +21,13 @@ function Login() {
         password
       );
       console.log("User logged in:", userCredential.user);
-      navigate("/workouts");
+
+      // Store user ID in localStorage and context
+      const userId = userCredential.user.uid; // Get the user ID from Firebase
+      localStorage.setItem("userId", userId); // Save user ID to localStorage
+      setUserId(userId); // Update user ID in context
+
+      navigate("/workouts"); // Redirect to workouts page
     } catch (error) {
       console.error("Login error:", error.message);
     }

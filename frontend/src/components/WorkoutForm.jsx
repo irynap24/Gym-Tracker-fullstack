@@ -1,55 +1,74 @@
-// A form for logging new workouts with fields for exercise type, sets, reps, and weights.
+import React, { useState, useContext } from "react";
+import axios from "axios";
+import { UserContext } from "../contexts/UserContext"; // Import UserContext
 
-import { useState } from "react";
-
-function WorkoutForm({ addWorkout }) {
-  //   console.log("WorkoutForm rendered"); // to see if the form renders
-
-  const [workout, setWorkout] = useState({ type: "", duration: "", date: "" });
+function WorkoutForm() {
+  const { userId } = useContext(UserContext); // Get userId from context
+  const [workoutData, setWorkoutData] = useState({
+    exerciseType: "",
+    sets: 0,
+    reps: 0,
+    weight: 0,
+    date: new Date().toISOString().split("T")[0], // Default to today
+  });
 
   const handleChange = (e) => {
-    setWorkout({ ...workout, [e.target.name]: e.target.value });
+    setWorkoutData({ ...workoutData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    addWorkout(workout);
-    setWorkout({ type: "", duration: "", date: "" });
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/workouts", {
+        userId, // Use userId from context
+        ...workoutData,
+      });
+      console.log("Workout logged:", response.data);
+      // Reset form or give feedback
+    } catch (error) {
+      console.error("Error logging workout:", error.response.data);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>Workout Type: </label>
-        <input
-          type="text"
-          name="type"
-          value={workout.type}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Duration (minutes): </label>
-        <input
-          type="number"
-          name="duration"
-          value={workout.duration}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Date: </label>
-        <input
-          type="date"
-          name="date"
-          value={workout.date}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <button type="submit">Add Workout</button>
+      <input
+        type="text"
+        name="exerciseType"
+        placeholder="Exercise Type"
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="number"
+        name="sets"
+        placeholder="Sets"
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="number"
+        name="reps"
+        placeholder="Reps"
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="number"
+        name="weight"
+        placeholder="Weight"
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="date"
+        name="date"
+        value={workoutData.date}
+        onChange={handleChange}
+        required
+      />
+      <button type="submit">Log Workout</button>
     </form>
   );
 }
