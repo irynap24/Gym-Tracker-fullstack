@@ -1,35 +1,61 @@
-import express from 'express';
-import Workout from '../models/workoutModel.js'; // Ensure the path is correct
+import React, { useContext } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
+import Workouts from "./pages/Workouts";
+import { UserProvider, UserContext } from "./contexts/UserContext"; // Import UserProvider and UserContext
 
-const router = express.Router();
+function App() {
+    const { isLoggedIn } = useContext(UserContext); // Get login status
 
-// POST /api/workouts
-router.post('/', async (req, res) => {
-    const { userId, exerciseType, sets, reps, weight, date } = req.body;
+    return (
+        <UserProvider>
+            <Router>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <Layout>
+                                <Home />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/workouts"
+                        element={
+                            isLoggedIn ? (
+                                <Layout>
+                                    <Workouts />
+                                </Layout>
+                            ) : (
+                                <Layout>
+                                    <h1>Please log in to access your workouts.</h1>
+                                </Layout>
+                            )
+                        }
+                    />
+                    <Route
+                        path="/login"
+                        element={
+                            <Layout>
+                                <Login />
+                            </Layout>
+                        }
+                    />
+                    <Route
+                        path="/register"
+                        element={
+                            <Layout>
+                                <Register />
+                            </Layout>
+                        }
+                    />
+                </Routes>
+            </Router>
+        </UserProvider>
+    );
+}
 
-    // Validate input
-    if (!userId || !exerciseType || sets === undefined || reps === undefined || weight === undefined || !date) {
-        return res.status(400).json({ error: 'All fields are required.' });
-    }
-
-    try {
-        // Create a new workout instance
-        const newWorkout = new Workout({
-            userId,
-            exerciseType,
-            sets,
-            reps,
-            weight,
-            date,
-        });
-
-        // Save the workout to the database
-        const savedWorkout = await newWorkout.save();
-        res.status(201).json(savedWorkout);
-    } catch (error) {
-        console.error('Error saving workout:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-export default router;
+export default App;

@@ -1,24 +1,30 @@
-// Contains links to Home, Workouts, History, Login, and Register.
+// Navbar.jsx
 import React, { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate(); // Hook for navigation
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsLoggedIn(true); // user is logged in
-      } else {
-        setIsLoggedIn(false); // user is logged out
-      }
+      setIsLoggedIn(!!user); // Set true if user is logged in
     });
 
-    return () => unsubscribe();
+    return () => unsubscribe(); // Clean up subscription on unmount
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // Sign out the user
+      navigate("/"); // Redirect to home or login page
+    } catch (error) {
+      console.error("Logout error:", error); // Handle error gracefully
+    }
+  };
 
   return (
     <nav className="navbar">
@@ -39,7 +45,7 @@ function Navbar() {
         )}
         {isLoggedIn ? (
           <li>
-            <button className="logout-btn" onClick={() => auth.signOut()}>
+            <button className="logout-btn" onClick={handleLogout}>
               Logout
             </button>
           </li>

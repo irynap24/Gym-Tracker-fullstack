@@ -1,27 +1,27 @@
-import { useState } from "react";
-import WorkoutForm from "../components/WorkoutForm";
+// Workouts.jsx
+import React, { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
+import WorkoutForm from "../components/WorkoutForm"; // Adjust the path if necessary
 
 function Workouts() {
-  const [workouts, setWorkouts] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const addWorkout = (newWorkout) => {
-    setWorkouts([...workouts, newWorkout]);
-  };
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLoggedIn(!!user); // Set true if user is logged in
+    });
+
+    return () => unsubscribe(); // Clean up subscription on unmount
+  }, []);
 
   return (
     <div>
-      <h2>Track Your Workouts</h2>
-      <WorkoutForm addWorkout={addWorkout} />
-
-      <h3>Your Logged Workouts</h3>
-      <ul>
-        {workouts.map((workout, index) => (
-          <li key={index}>
-            <strong>{workout.type}</strong> - {workout.duration} minutes on{" "}
-            {workout.date}
-          </li>
-        ))}
-      </ul>
+      {isLoggedIn ? (
+        <WorkoutForm />
+      ) : (
+        <h2>Please log in to track your workouts</h2>
+      )}
     </div>
   );
 }
