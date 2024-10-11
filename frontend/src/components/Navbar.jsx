@@ -36,7 +36,10 @@ function Navbar() {
         {isLoggedIn && (
           <>
             <li>
-              <Link to="/workouts">Workouts</Link>
+              <Link to="/workouts">Log Workout</Link>
+            </li>
+            <li>
+              <Link to="/exercises">Exercises</Link>
             </li>
             <li>
               <Link to="/history">History</Link>

@@ -10,8 +10,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url("C:\Users\Iryna\Desktop\gym-fullstack\frontend\public\5279144.jpg")
-    no-repeat;
+  background: beige no-repeat;
   background-size: cover;
   background-position: center;
 }

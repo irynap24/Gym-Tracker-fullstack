@@ -1,102 +1,85 @@
 /* General styling for the navbar */
 nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #282c347a;
-  padding: 1rem 2rem;
-  color: white;
+  position: fixed; /* Fixed positioning for the navbar */
+  top: 0; /* Position it at the top */
+  left: 0; /* Align to the left */
+  width: 100%; /* Full width */
+  display: flex; /* Flexbox for layout */
+  justify-content: space-between; /* Space between items */
+  align-items: center; /* Center items vertically */
+  background-color: rgba(40, 44, 52, 0.7); /* Semi-transparent background */
+  padding: 1rem 2rem; /* Padding */
+  color: white; /* Text color */
+  z-index: 1000; /* Ensure it's above other content */
 }
 
 /* Navbar logo/title */
 nav h1 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #bde3ee;
-  margin: 0;
+  font-size: 1.5rem; /* Title size */
+  font-weight: bold; /* Bold title */
+  color: #bde3ee; /* Title color */
+  margin: 0; /* Remove default margin */
 }
 
 /* Navbar links */
 nav ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: 1rem;
+  display: flex; /* Flexbox for links */
+  list-style: none; /* Remove default list styling */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  gap: 1rem; /* Space between links */
 }
 
-/* list items */
+/* List items */
 nav ul li {
-  margin-left: 1.5rem;
-  display: inline;
-  display: flex;
-  align-items: center;
+  margin-left: 1.5rem; /* Space on the left */
+  display: flex; /* Flexbox for alignment */
+  align-items: center; /* Center align items */
 }
 
-/* links */
+/* Links */
 nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s;
+  color: white; /* Link color */
+  text-decoration: none; /* Remove underline */
+  font-size: 1rem; /* Font size */
+  transition: color 0.3s; /* Smooth color transition */
 }
 
 /* Hover effect for links */
 nav ul li a:hover {
-  color: #61dafb;
+  color: #61dafb; /* Change color on hover */
 }
 
-/* Responsive for small screens */
-@media (max-width: 768px) {
-  nav ul {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  nav ul li {
-    margin-left: 0;
-    margin-bottom: 0.5rem;
-  }
-}
-
-body {
-  padding-top: 60px;
-}
+/* Logout button styling */
 .logout-btn {
-  background-color: transparent;
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 10px 20px;
-  font-size: 1rem;
-  transition: color 0.3s ease;
+  background-color: transparent; /* Transparent background */
+  color: white; /* Button text color */
+  border: none; /* Remove border */
+  cursor: pointer; /* Pointer cursor on hover */
+  padding: 10px 20px; /* Padding */
+  font-size: 1rem; /* Font size */
+  transition: color 0.3s ease; /* Smooth color transition */
 }
+
+/* Hover effect for logout button */
 .logout-btn:hover {
-  color: #61dafb;
+  color: #61dafb; /* Change color on hover */
 }
 
-nav ul li .logout-btn {
-  display: inline-flex;
-  align-items: center;
-}
-
-/* Responsive for small screens */
+/* Responsive styling for small screens */
 @media (max-width: 768px) {
   nav ul {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column; /* Stack links vertically */
+    align-items: flex-start; /* Align links to the start */
   }
 
   nav ul li {
-    margin-left: 0;
-    margin-bottom: 0.5rem;
+    margin-left: 0; /* Remove left margin */
+    margin-bottom: 0.5rem; /* Space between items */
   }
 }
 
+/* Add padding to the body to prevent overlap with the fixed navbar */
 body {
-  padding-top: 60px;
+  padding-top: 60px; /* Space at the top */
 }

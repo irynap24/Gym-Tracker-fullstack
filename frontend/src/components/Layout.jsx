@@ -1,13 +1,14 @@
+// Layout.jsx
 import React from "react";
-import Navbar from "./Navbar"; //
+import Navbar from "./Navbar"; // Adjust the import path if necessary
 
-function Layout({ children }) {
+const Layout = ({ children }) => {
   return (
     <div>
-      <Navbar /> {/* ensure the Navbar is present on every page */}
-      <div>{children}</div> {/* render the specific page content */}
+      <Navbar />
+      <main style={{ marginTop: "60px" }}> {children}</main>
     </div>
   );
-}
+};
 
 export default Layout;

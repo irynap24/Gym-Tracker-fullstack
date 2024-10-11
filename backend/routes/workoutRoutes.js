@@ -1,61 +1,58 @@
-import React, { useContext } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Home from "./pages/Home";
-import Workouts from "./pages/Workouts";
-import { UserProvider, UserContext } from "./contexts/UserContext"; // Import UserProvider and UserContext
+import express from "express";
+import mongoose from "mongoose";
+import Workout from "../models/workoutModel.js"; // Importing the Workout model
 
-function App() {
-    const { isLoggedIn } = useContext(UserContext); // Get login status
+const router = express.Router();
 
-    return (
-        <UserProvider>
-            <Router>
-                <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <Layout>
-                                <Home />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/workouts"
-                        element={
-                            isLoggedIn ? (
-                                <Layout>
-                                    <Workouts />
-                                </Layout>
-                            ) : (
-                                <Layout>
-                                    <h1>Please log in to access your workouts.</h1>
-                                </Layout>
-                            )
-                        }
-                    />
-                    <Route
-                        path="/login"
-                        element={
-                            <Layout>
-                                <Login />
-                            </Layout>
-                        }
-                    />
-                    <Route
-                        path="/register"
-                        element={
-                            <Layout>
-                                <Register />
-                            </Layout>
-                        }
-                    />
-                </Routes>
-            </Router>
-        </UserProvider>
-    );
-}
+// Route to get all workouts for a user
+router.get("/", async (req, res) => {
+    try {
+        // Assuming userId is available from authentication (you may need to adjust this)
+        const workouts = await Workout.find({ userId: req.user.id });
+        res.json(workouts);
+    } catch (err) {
+        res.status(500).json({ error: "Server error: " + err.message });
+    }
+});
 
-export default App;
+// Route to log a new workout
+router.post("/", async (req, res) => {
+    const { userId, exerciseType, sets, reps, weight, date } = req.body;
+
+    // Validation (ensure userId and other fields are present)
+    if (!userId || !exerciseType || !sets || !reps || !weight || !date) {
+        return res.status(400).json({ error: "All fields are required" });
+    }
+
+    try {
+        const newWorkout = new Workout({
+            userId,
+            exerciseType,
+            sets,
+            reps,
+            weight,
+            date,
+        });
+
+        const savedWorkout = await newWorkout.save();
+        res.status(201).json(savedWorkout); // Return created status
+    } catch (err) {
+        res.status(500).json({ error: "Error logging workout: " + err.message });
+    }
+});
+
+// Route to delete a workout by ID
+router.delete("/:id", async (req, res) => {
+    try {
+        const deletedWorkout = await Workout.findByIdAndDelete(req.params.id);
+        if (!deletedWorkout) {
+            return res.status(404).json({ error: "Workout not found" });
+        }
+        res.json({ message: "Workout deleted", deletedWorkout });
+    } catch (err) {
+        res.status(500).json({ error: "Server error: " + err.message });
+    }
+});
+
+// Export the router for use in other parts of the application
+export default router;

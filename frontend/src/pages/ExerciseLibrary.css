@@ -1,0 +1,122 @@
+/* src/pages/ExerciseLibrary.css */
+
+button {
+  margin: 5px;
+  padding: 10px 15px;
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+.exercise-library {
+  padding: 20px;
+}
+
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(200px, 1fr)
+  ); /* Creates responsive columns */
+  gap: 20px; /* Space between grid items */
+}
+
+.exercise-card {
+  border: 1px solid #ddd; /* Optional border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px; /* Inner spacing */
+  text-align: center; /* Center text */
+  transition: transform 0.2s; /* Animation on hover */
+}
+
+.exercise-card img {
+  max-width: 100%; /* Responsive image */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 5px; /* Rounded corners for images */
+}
+
+.exercise-card:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+.body-part-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.body-part-button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.body-part-button:hover {
+  background-color: #0056b3;
+}
+
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.exercise-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.exercise-card img {
+  width: 100%;
+  height: auto;
+}
+/* ExerciseLibrary.css */
+.body-parts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.body-part-link {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.body-part-link:hover {
+  background-color: #0056b3;
+}
+
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.exercise-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.exercise-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}

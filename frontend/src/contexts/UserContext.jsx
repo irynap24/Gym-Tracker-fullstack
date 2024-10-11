@@ -1,28 +1,30 @@
-// contexts/UserContext.jsx
 import React, { createContext, useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase"; // Ensure this is your correct Firebase import path
 
+// Create the UserContext
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [userId, setUserId] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState(null); // To store user ID
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
-    if (storedUserId) {
-      setUserId(storedUserId);
-      setIsLoggedIn(true);
-    }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLoggedIn(true);
+        setUserId(user.uid); // Assuming you want to save the user's ID
+      } else {
+        setIsLoggedIn(false);
+        setUserId(null);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  const logout = () => {
-    localStorage.removeItem("userId");
-    setUserId(null);
-    setIsLoggedIn(false);
-  };
-
   return (
-    <UserContext.Provider value={{ userId, setUserId, isLoggedIn, logout }}>
+    <UserContext.Provider value={{ isLoggedIn, userId }}>
       {children}
     </UserContext.Provider>
   );

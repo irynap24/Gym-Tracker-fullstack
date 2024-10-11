@@ -1,16 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout"; // Import the Layout component
+import Layout from "./components/Layout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Workouts from "./pages/Workouts";
-import { UserProvider } from "./contexts/UserContext"; // Import UserProvider
+import ExerciseLibrary from "./pages/ExerciseLibrary";
+import { UserProvider } from "./contexts/UserContext"; // Ensure this path is correct
 
 function App() {
   return (
     <UserProvider>
-      {/* Wrap the application with UserProvider */}
       <Router>
         <Routes>
           <Route
@@ -26,6 +26,22 @@ function App() {
             element={
               <Layout>
                 <Workouts />
+              </Layout>
+            }
+          />
+          <Route
+            path="/exercises"
+            element={
+              <Layout>
+                <ExerciseLibrary />
+              </Layout>
+            }
+          />
+          <Route
+            path="/exercises/:bodyPart"
+            element={
+              <Layout>
+                <ExerciseLibrary />
               </Layout>
             }
           />
