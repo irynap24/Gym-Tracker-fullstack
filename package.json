@@ -2,5 +2,8 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "firebase": "^10.14.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.5"
   }
 }

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const workoutSchema = new mongoose.Schema({
     userId: {
         type: String,
-        required: true, // This is required for logging workouts
+        required: true, // Required for logging workouts
     },
     exerciseType: {
         type: String,

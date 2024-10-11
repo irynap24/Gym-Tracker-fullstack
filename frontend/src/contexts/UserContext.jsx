@@ -2,7 +2,6 @@ import React, { createContext, useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase"; // Ensure this is your correct Firebase import path
 
-// Create the UserContext
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
