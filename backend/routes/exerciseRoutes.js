@@ -37,3 +37,33 @@ router.get('/exercises/bodyPart/:bodyPart', async (req, res) => {
 });
 
 export default router;
+// import express from "express";
+// import Exercise from "../models/exerciseModel.js"; // Adjust path according to your project structure
+
+// const router = express.Router();
+
+// // Route to get all exercises from all collections
+// router.get("/", async (req, res) => {
+//     try {
+//         const backExercises = await Exercise.find({}).where({ collection: 'Back' });
+//         const cardioExercises = await Exercise.find({}).where({ collection: 'Cardio' });
+//         const chestExercises = await Exercise.find({}).where({ collection: 'Chest' });
+//         const coreExercises = await Exercise.find({}).where({ collection: 'Core' });
+//         const legsExercises = await Exercise.find({}).where({ collection: 'Legs' });
+//         const shouldersExercises = await Exercise.find({}).where({ collection: 'Shoulders' });
+
+//         res.json([
+//             ...backExercises,
+//             ...cardioExercises,
+//             ...chestExercises,
+//             ...coreExercises,
+//             ...legsExercises,
+//             ...shouldersExercises,
+//         ]);
+//     } catch (error) {
+//         console.error("Error fetching exercises:", error);
+//         res.status(500).json({ error: "Failed to fetch exercises." });
+//     }
+// });
+
+// export default router;

@@ -3,16 +3,12 @@
 button {
   margin: 5px;
   padding: 10px 15px;
-  background-color: #4caf50; /* Green background */
   color: white; /* White text */
   border: none; /* No border */
   border-radius: 5px; /* Rounded corners */
   cursor: pointer; /* Pointer cursor on hover */
 }
 
-button:hover {
-  background-color: #45a049; /* Darker green on hover */
-}
 .exercise-library {
   padding: 20px;
 }

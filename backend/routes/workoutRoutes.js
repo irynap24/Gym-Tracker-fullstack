@@ -1,5 +1,5 @@
 import express from "express";
-import Workout from "../models/workoutModel.js"; // Make sure this path is correct
+import Workout from "../models/workoutModel.js";
 
 const router = express.Router();
 
@@ -69,5 +69,4 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
-// Export the router for use in other parts of the application
 export default router;

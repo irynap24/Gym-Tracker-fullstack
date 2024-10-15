@@ -95,5 +95,91 @@ function ExerciseLibrary() {
     </div>
   );
 }
-
 export default ExerciseLibrary;
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+
+// const ExerciseLibrary = () => {
+//   const [exercises, setExercises] = useState({
+//     Back: [],
+//     Cardio: [],
+//     Chest: [],
+//     Core: [],
+//     Legs: [],
+//     Shoulders: [],
+//   });
+//   const [selectedExercise, setSelectedExercise] = useState(null);
+
+//   useEffect(() => {
+//     const fetchExercises = async () => {
+//       try {
+//         // Fetch exercises for each collection
+//         const collections = [
+//           "Back",
+//           "Cardio",
+//           "Chest",
+//           "Core",
+//           "Legs",
+//           "Shoulders",
+//         ];
+//         const promises = collections.map(async (collection) => {
+//           const response = await axios.get(
+//             `http://localhost:5000/api/exercises/${collection}`
+//           );
+//           return { collection, data: response.data };
+//         });
+
+//         const results = await Promise.all(promises);
+
+//         // Organize exercises by collection
+//         const exercisesData = {};
+//         results.forEach(({ collection, data }) => {
+//           exercisesData[collection] = data;
+//         });
+//         setExercises(exercisesData);
+//       } catch (error) {
+//         console.error("Error fetching exercises:", error);
+//       }
+//     };
+
+//     fetchExercises();
+//   }, []);
+
+//   const handleExerciseClick = (exercise) => {
+//     setSelectedExercise(exercise);
+//   };
+
+//   return (
+//     <div>
+//       {Object.keys(exercises).map((collection) => (
+//         <div key={collection}>
+//           <h2>
+//             {collection.charAt(0).toUpperCase() + collection.slice(1)} Exercises
+//           </h2>
+//           {exercises[collection].length > 0 ? (
+//             exercises[collection].map((exercise) => (
+//               <button
+//                 key={exercise._id}
+//                 onClick={() => handleExerciseClick(exercise)}
+//               >
+//                 {exercise.name}
+//               </button>
+//             ))
+//           ) : (
+//             <p>No exercises found for {collection}.</p>
+//           )}
+//         </div>
+//       ))}
+
+//       {selectedExercise && (
+//         <div className="exercise-detail">
+//           <h3>{selectedExercise.name}</h3>
+//           <img src={selectedExercise.img} alt={selectedExercise.name} />
+//           <p>Equipment: {selectedExercise.equipment}</p>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default ExerciseLibrary;
