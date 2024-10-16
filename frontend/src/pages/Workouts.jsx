@@ -1,13 +1,13 @@
-// Workouts.jsx
 import React, { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import firebaseConfig, { auth } from "../firebase";
+import { auth } from "../firebase"; // Ensure this path is correct
 import WorkoutForm from "../components/WorkoutForm"; // Adjust the path if necessary
 
 function Workouts() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    // Listen for authentication state changes
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsLoggedIn(!!user); // Set true if user is logged in
     });
