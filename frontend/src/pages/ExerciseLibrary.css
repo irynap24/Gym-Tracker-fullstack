@@ -1,5 +1,8 @@
 /* src/pages/ExerciseLibrary.css */
-
+h1 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #fec89a;
+}
 button {
   margin: 5px;
   padding: 10px 15px;
@@ -23,17 +26,17 @@ button {
 }
 
 .exercise-card {
-  border: 1px solid #ddd; /* Optional border */
-  border-radius: 5px; /* Rounded corners */
+  border: 1px solid #ddd;
+  border-radius: 5px;
   padding: 10px; /* Inner spacing */
-  text-align: center; /* Center text */
-  transition: transform 0.2s; /* Animation on hover */
+  text-align: center;
+  transition: transform 0.2s;
 }
 
 .exercise-card img {
   max-width: 100%; /* Responsive image */
   height: auto; /* Maintain aspect ratio */
-  border-radius: 5px; /* Rounded corners for images */
+  border-radius: 5px;
 }
 
 .exercise-card:hover {
@@ -49,7 +52,7 @@ button {
 .body-part-button {
   margin: 10px;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #fec89a;
   color: white;
   text-decoration: none;
   border-radius: 5px;
@@ -57,7 +60,7 @@ button {
 }
 
 .body-part-button:hover {
-  background-color: #0056b3;
+  background-color: #fec89a;
 }
 
 .exercise-grid {
@@ -77,7 +80,7 @@ button {
   width: 100%;
   height: auto;
 }
-/* ExerciseLibrary.css */
+
 .body-parts {
   display: flex;
   flex-wrap: wrap;
@@ -88,14 +91,14 @@ button {
 .body-part-link {
   margin: 10px;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #fec89a;
   color: white;
   text-decoration: none;
   border-radius: 5px;
 }
 
 .body-part-link:hover {
-  background-color: #0056b3;
+  background-color: #ffd7ba;
 }
 
 .exercise-grid {
@@ -105,8 +108,8 @@ button {
 }
 
 .exercise-card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: none;
+  border-radius: 5px;
   padding: 10px;
   text-align: center;
 }

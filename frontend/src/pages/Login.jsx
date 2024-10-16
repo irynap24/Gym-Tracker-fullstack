@@ -35,7 +35,7 @@ function Login() {
 
   return (
     <div className="wrapper">
-      <form onSubmit={handleLogin}>
+      <form className="login-form" onSubmit={handleLogin}>
         <h1>Login</h1>
         <div className="input-box">
           <input

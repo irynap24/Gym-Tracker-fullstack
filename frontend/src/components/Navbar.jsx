@@ -32,7 +32,7 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <h1 className="navbar-logo">Gym Workout Tracker</h1>
+      <h1 className="navbar-logo">GymLog+</h1>
       <div className={`nav-links ${isOpen ? "open" : ""}`}>
         <ul>
           <li>

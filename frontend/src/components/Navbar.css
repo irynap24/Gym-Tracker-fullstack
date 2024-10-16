@@ -7,9 +7,9 @@ nav {
   display: flex; /* Flexbox for layout */
   justify-content: space-between; /* Space between items */
   align-items: center; /* Center items vertically */
-  background-color: rgba(40, 44, 52, 0.7); /* Semi-transparent background */
+  background-color: #fec5bb; /* Semi-transparent background */
   padding: 1rem 2rem; /* Padding */
-  color: white; /* Text color */
+  color: #ffe5d9; /* Text color */
   z-index: 1000; /* Ensure it's above other content */
 }
 

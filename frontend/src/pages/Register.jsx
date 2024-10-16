@@ -64,7 +64,7 @@ function Register() {
 
   return (
     <div className="register-wrapper">
-      <form onSubmit={handleRegister}>
+      <form className="register-form" onSubmit={handleRegister}>
         <h1>Registration Form</h1>
         <div className="name-fields">
           <div className="input-box">

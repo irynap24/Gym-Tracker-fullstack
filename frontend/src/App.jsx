@@ -6,8 +6,8 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Workouts from "./pages/Workouts";
 import ExerciseLibrary from "./pages/ExerciseLibrary";
-import History from "./components/History"; // Import History component
-import { UserProvider } from "./contexts/UserContext"; // Ensure this path is correct
+import History from "./components/History";
+import { UserProvider } from "./contexts/UserContext";
 
 function App() {
   return (
@@ -63,7 +63,7 @@ function App() {
             }
           />
           <Route
-            path="/history" // Add history route
+            path="/history"
             element={
               <Layout>
                 <History />

@@ -10,7 +10,8 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: beige no-repeat;
+  background: #f8edeb;
+
   background-size: cover;
   background-position: center;
 }
@@ -18,8 +19,8 @@ body {
 .wrapper {
   width: 420px;
   background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(9px);
+  /* border: 2px solid rgba(255, 255, 255, 0.2); for use with an image,creates blurred effect border */
+  /* backdrop-filter: blur(9px); */
   color: #fff;
   border-radius: 12px;
   padding: 30px 40px;
@@ -46,12 +47,12 @@ body {
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 40px;
   font-size: 16px;
-  color: #fff;
+  color: #ece4db;
   padding: 20px 45px 20px 20px;
 }
 
 .input-box input::placeholder {
-  color: #fff;
+  color: #fec5bb;
 }
 
 .input-box i {
@@ -82,8 +83,8 @@ body {
   margin: 20px 0 15px;
 }
 
-.register-link p a {
-  color: #fff;
+.register-link p {
+  color: #d8b4a0;
   text-decoration: none;
   font-weight: 600;
 }
@@ -95,7 +96,7 @@ body {
 .login-btn {
   width: 100%;
   height: 50px;
-  background: #0d55da;
+  background: #fec89a;
   border: none;
   outline: none;
   cursor: pointer;
@@ -106,11 +107,11 @@ body {
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 .login-btn:hover {
-  background-color: #52c4e7;
+  background-color: #ffd7ba;
   transform: translateY(-2px); /* Slight "lift" effect */
 }
 .register-text {
-  color: #ccdbe6;
+  color: #fec5bb;
   text-decoration: none;
   font-weight: 600;
   cursor: pointer;
@@ -119,6 +120,20 @@ body {
 
 /* Change color on hover */
 .register-text:hover {
-  color: #ffffff; /* Darker shade on hover */
+  color: #8a817c;
   text-decoration: none; /* Add underline on hover for clarity */
+}
+.login-form {
+  background-color: #ffe5d9;
+}
+
+/* For mobile, smaller screens */
+@media screen and (max-width: 480px) {
+  .navbar-logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-links ul li a {
+    font-size: 1rem;
+  }
 }

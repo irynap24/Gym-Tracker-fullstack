@@ -1,0 +1,101 @@
+.history-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.date-header {
+  font-size: 1.5em;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ddd;
+}
+
+.workout-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.workout-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.button-group {
+  display: flex;
+  gap: 5px;
+}
+
+.edit-button,
+.delete-button,
+.expand-button,
+.collapse-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #4caf50; /* Green */
+  color: white;
+}
+
+.delete-button {
+  background-color: #f44336; /* Red */
+  color: white;
+}
+
+.expand-button,
+.collapse-button {
+  background-color: #2196f3; /* Blue */
+  color: white;
+}
+
+.edit-form {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.edit-form input {
+  margin: 5px;
+  padding: 5px;
+}
+@media (max-width: 600px) {
+  .workout-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .button-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  .edit-button,
+  .delete-button,
+  .expand-button,
+  .collapse-button {
+    width: 100%;
+    margin: 5px 0;
+  }
+  .edit-form {
+    margin-top: 10px;
+  }
+  .edit-form input {
+    width: calc(100% - 10px);
+  }
+  .date-header {
+    font-size: 1.2em;
+  }
+}

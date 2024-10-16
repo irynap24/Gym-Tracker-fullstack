@@ -7,9 +7,9 @@ form {
 
 select,
 input {
+  background-color: #f8edeb96;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: none;
 }
 
 button {
@@ -21,15 +21,12 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #0056b3;
-}
 /* Style the form container */
 form {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  background-color: #f9f9f9;
+  background-color: #ffe5d9;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -52,7 +49,7 @@ button {
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
-  background-color: #5cb85c;
+  background-color: #fec89a;
   color: white;
   font-size: 16px;
   cursor: pointer;
@@ -60,7 +57,7 @@ button {
 }
 
 button:hover {
-  background-color: #4cae4c;
+  background-color: #ffd7ba;
 }
 
 button:disabled {
@@ -107,4 +104,43 @@ button.summary-button {
 
 button.summary-button:hover {
   background-color: #0056b3;
+}
+/* .logging-form {
+  background-color: #ffe5d9;
+} */
+.dropdown {
+  width: 100%; /* Full width */
+  padding: 12px 20px; /* Spacing */
+  margin: 8px 0; /* Spacing */
+  border: 2px solid #fcd5ce; /* Border color */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #fae1dd; /* Background color */
+  color: #333; /* Text color */
+  font-size: 16px; /* Font size */
+  appearance: none; /* Remove default styling in some browsers */
+  background-position: right 10px center; /* Position the arrow */
+  background-size: 12px; /* Size of the arrow */
+  cursor: pointer; /* Pointer cursor */
+}
+
+/* Remove outline on focus */
+.dropdown:focus {
+  background-color: #ffd7ba5b;
+  outline: none;
+  border-color: #fec89a; /* Border color on focus */
+  box-shadow: 0 0 5px rgba(254, 200, 154, 0.5); /* Shadow on focus */
+}
+
+/* Style for disabled options */
+.dropdown option:disabled {
+  color: #999; /* Color for disabled options */
+}
+.exercise-dropdown {
+  background-color: #fae1dd;
+}
+.exercise-dropdown:focus {
+  background-color: #ffd7ba5b;
+  outline: none;
+  border-color: #fec89a; /* Border color on focus */
+  box-shadow: 0 0 5px rgba(254, 200, 154, 0.5);
 }

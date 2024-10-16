@@ -16,9 +16,9 @@ h1 {
 }
 .register-wrapper {
   width: 420px;
-  background: transparent;
+  /* background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(9px);
+  backdrop-filter: blur(9px); */
   border-radius: 12px;
   padding: 30px 40px;
 }
@@ -45,20 +45,24 @@ h1 {
 }
 
 .input-box input {
+  color: #223843;
   width: 100%;
   height: 100%;
   background: transparent;
   border: none;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 2px solid rgba(177, 79, 33, 0.13);
   outline: none;
   padding: 10px 20px;
   border-radius: 0;
+}
+.input-box input::placeholder {
+  color: #fec5bb;
 }
 /* Register button */
 .btn {
   width: 100%;
   height: 50px;
-  background: #0d55da;
+  background: #fec89a;
   border: none;
   outline: none;
   cursor: pointer;
@@ -72,4 +76,17 @@ h1 {
 .btn:hover {
   background-color: #52c4e7;
   transform: translateY(-2px); /* Slight "lift" effect */
+}
+/* For mobile, smaller screens */
+@media screen and (max-width: 480px) {
+  .navbar-logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-links ul li a {
+    font-size: 1rem;
+  }
+}
+.register-form {
+  background-color: #ffe5d9;
 }
