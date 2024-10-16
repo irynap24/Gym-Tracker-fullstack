@@ -45,14 +45,13 @@ nav ul li a {
   transition: color 0.3s; /* Smooth color transition */
 }
 
-/* Hover effect for links */
-nav ul li a:hover {
-  color: #61dafb; /* Change color on hover */
+.nav-links ul li a:hover {
+  color: #fec5bb;
+  text-decoration: none; /* Remove underline */
 }
 
 /* Logout button styling */
 .logout-btn {
-  background-color: transparent; /* Transparent background */
   color: white; /* Button text color */
   border: none; /* Remove border */
   cursor: pointer; /* Pointer cursor on hover */
@@ -63,7 +62,8 @@ nav ul li a:hover {
 
 /* Hover effect for logout button */
 .logout-btn:hover {
-  color: #61dafb; /* Change color on hover */
+  background-color: #ffd7ba;
+  color: #2b1e1c; /* Change color on hover */
 }
 
 /* Responsive styling for small screens */
@@ -103,6 +103,9 @@ body {
 }
 
 .nav-links {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  list-style: none; /* Remove list bullets */
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -126,7 +129,7 @@ body {
 }
 
 .nav-links ul li a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 /* Hamburger menu styling */

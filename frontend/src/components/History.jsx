@@ -114,7 +114,6 @@
 // };
 
 // export default History;
-
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
@@ -255,24 +254,68 @@ const History = () => {
               <ul className="workout-list">
                 {workouts.slice(0, 4).map((workout) => (
                   <li key={workout._id} className="workout-item">
-                    <span>{workout.exerciseType}: </span>
-                    <span>{workout.sets} sets, </span>
-                    <span>{workout.reps} reps, </span>
-                    <span>{workout.weight} lbs</span>
-                    <div className="button-group">
-                      <button
-                        className="edit-button"
-                        onClick={() => handleEditWorkout(workout)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="delete-button"
-                        onClick={() => handleDeleteWorkout(workout._id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
+                    {isEditing && editingWorkout._id === workout._id ? (
+                      <div className="edit-workout">
+                        <input
+                          type="number"
+                          placeholder="Sets"
+                          value={updateData.sets}
+                          onChange={(e) =>
+                            setUpdateData({
+                              ...updateData,
+                              sets: e.target.value,
+                            })
+                          }
+                        />
+                        <input
+                          type="number"
+                          placeholder="Reps"
+                          value={updateData.reps}
+                          onChange={(e) =>
+                            setUpdateData({
+                              ...updateData,
+                              reps: e.target.value,
+                            })
+                          }
+                        />
+                        <input
+                          type="number"
+                          placeholder="Weight"
+                          value={updateData.weight}
+                          onChange={(e) =>
+                            setUpdateData({
+                              ...updateData,
+                              weight: e.target.value,
+                            })
+                          }
+                        />
+                        <button onClick={handleUpdateWorkout}>Update</button>
+                        <button onClick={() => setIsEditing(false)}>
+                          Cancel
+                        </button>
+                      </div>
+                    ) : (
+                      <div>
+                        <span>{workout.exerciseType}: </span>
+                        <span>{workout.sets} sets, </span>
+                        <span>{workout.reps} reps, </span>
+                        <span>{workout.weight} lbs</span>
+                        <div className="button-group">
+                          <button
+                            className="edit-button"
+                            onClick={() => handleEditWorkout(workout)}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="delete-button"
+                            onClick={() => handleDeleteWorkout(workout._id)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </li>
                 ))}
                 {workouts.length > 4 &&
@@ -318,38 +361,6 @@ const History = () => {
               </ul>
             </div>
           ))}
-        </div>
-      )}
-
-      {isEditing && (
-        <div className="edit-form">
-          <h3>Edit Workout</h3>
-          <input
-            type="number"
-            placeholder="Sets"
-            value={updateData.sets}
-            onChange={(e) =>
-              setUpdateData({ ...updateData, sets: e.target.value })
-            }
-          />
-          <input
-            type="number"
-            placeholder="Reps"
-            value={updateData.reps}
-            onChange={(e) =>
-              setUpdateData({ ...updateData, reps: e.target.value })
-            }
-          />
-          <input
-            type="number"
-            placeholder="Weight"
-            value={updateData.weight}
-            onChange={(e) =>
-              setUpdateData({ ...updateData, weight: e.target.value })
-            }
-          />
-          <button onClick={handleUpdateWorkout}>Update</button>
-          <button onClick={() => setIsEditing(false)}>Cancel</button>
         </div>
       )}
     </div>

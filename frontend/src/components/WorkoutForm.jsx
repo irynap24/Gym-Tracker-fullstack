@@ -313,101 +313,97 @@ function WorkoutForm() {
     }
   };
 
-  const handleLogMore = () => {
-    setShowSummary(false); // Hide summary
-    setWorkouts([]); // Clear workouts
-  };
-
   return (
     <div>
-      {!showSummary ? (
-        <form onSubmit={(e) => e.preventDefault()}>
-          {/* Body Part Dropdown */}
+      <form onSubmit={(e) => e.preventDefault()}>
+        {/* Body Part Dropdown */}
+        <select
+          name="bodyPart"
+          value={selectedBodyPart}
+          onChange={(e) => setSelectedBodyPart(e.target.value)}
+          required
+        >
+          <option value="">Select Body Part</option>
+          {bodyParts.map((part) => (
+            <option key={part} value={part}>
+              {part.charAt(0).toUpperCase() + part.slice(1)}
+            </option>
+          ))}
+        </select>
+
+        {/* Exercise Dropdown */}
+        {selectedBodyPart && (
           <select
-            name="bodyPart"
-            value={selectedBodyPart}
-            onChange={(e) => setSelectedBodyPart(e.target.value)}
+            name="exerciseType"
+            value={workoutData.exerciseType}
+            onChange={handleChange}
             required
           >
-            <option value="">Select Body Part</option>
-            {bodyParts.map((part) => (
-              <option key={part} value={part}>
-                {part.charAt(0).toUpperCase() + part.slice(1)}
+            <option value="">Select Exercise</option>
+            {exercises.map((exercise) => (
+              <option key={exercise.id} value={exercise.name}>
+                {exercise.name}
               </option>
             ))}
           </select>
+        )}
 
-          {/* Exercise Dropdown */}
-          {selectedBodyPart && (
-            <select
-              name="exerciseType"
-              value={workoutData.exerciseType}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Exercise</option>
-              {exercises.map((exercise) => (
-                <option key={exercise.id} value={exercise.name}>
-                  {exercise.name}
-                </option>
-              ))}
-            </select>
-          )}
-
-          {/* Input fields for workouts */}
-          {selectedBodyPart !== "cardio" ? (
-            <>
-              <input
-                type="number"
-                name="sets"
-                placeholder="Sets"
-                value={workoutData.sets}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="number"
-                name="reps"
-                placeholder="Reps"
-                value={workoutData.reps}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="number"
-                name="weight"
-                placeholder="Weight"
-                value={workoutData.weight}
-                onChange={handleChange}
-              />
-            </>
-          ) : (
+        {/* Input fields for workouts */}
+        {selectedBodyPart !== "cardio" ? (
+          <>
             <input
               type="number"
-              name="minutes"
-              placeholder="Minutes"
-              value={workoutData.minutes}
+              name="sets"
+              placeholder="Sets"
+              value={workoutData.sets}
               onChange={handleChange}
               required
             />
-          )}
-
-          {/* Date Input */}
+            <input
+              type="number"
+              name="reps"
+              placeholder="Reps"
+              value={workoutData.reps}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="number"
+              name="weight"
+              placeholder="Weight"
+              value={workoutData.weight}
+              onChange={handleChange}
+            />
+          </>
+        ) : (
           <input
-            type="date"
-            name="date"
-            value={workoutData.date}
+            type="number"
+            name="minutes"
+            placeholder="Minutes"
+            value={workoutData.minutes}
             onChange={handleChange}
             required
           />
-          <button type="button" onClick={handleAddWorkout}>
-            Add Workout
-          </button>
-          <button type="button" onClick={handleDoneLogging}>
-            Done Logging
-          </button>
-        </form>
-      ) : (
+        )}
+
+        {/* Date Input */}
+        <input
+          type="date"
+          name="date"
+          value={workoutData.date}
+          onChange={handleChange}
+          required
+        />
+        <button type="button" onClick={handleAddWorkout}>
+          Add Workout
+        </button>
+        <button type="button" onClick={handleDoneLogging}>
+          Done Logging
+        </button>
+      </form>
+
+      {/* Show summary only after clicking done logging */}
+      {showSummary && workouts.length > 0 && (
         <div>
           <h3>Today's Workouts Summary</h3>
           <ul>
@@ -425,7 +421,14 @@ function WorkoutForm() {
               </li>
             ))}
           </ul>
-          <button onClick={handleLogMore}>Log More Workouts</button>
+          <button
+            onClick={() => {
+              setShowSummary(false);
+              setWorkouts([]); // Clear workouts after showing the summary
+            }}
+          >
+            Log More Workouts
+          </button>
         </div>
       )}
     </div>
