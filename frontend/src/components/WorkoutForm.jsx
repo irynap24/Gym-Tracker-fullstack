@@ -93,7 +93,7 @@
 //         reps: "",
 //         weight: "",
 //         minutes: "",
-//         date: new Date().toISOString().split("T")[0], // Reset to today's date
+//         date: new Date().toISOString().split("T")[0],
 //       });
 //       setExercises([]);
 //     } catch (error) {
@@ -204,7 +204,7 @@ function WorkoutForm() {
     reps: "",
     weight: "",
     minutes: "",
-    date: new Date().toISOString().split("T")[0], // Set default date to YYYY-MM-DD format
+    date: new Date().toISOString().split("T")[0],
   });
   const [showSummary, setShowSummary] = useState(false);
 
@@ -413,7 +413,6 @@ function WorkoutForm() {
                   {" "}
                   on {new Date(workout.date).toLocaleDateString("en-US")}
                 </span>{" "}
-                {/* Show date in US format */}
               </li>
             ))}
           </ul>
