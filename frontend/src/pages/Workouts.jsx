@@ -1,7 +1,7 @@
 // Workouts.jsx
 import React, { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase";
+import firebaseConfig, { auth } from "../firebase";
 import WorkoutForm from "../components/WorkoutForm"; // Adjust the path if necessary
 
 function Workouts() {
