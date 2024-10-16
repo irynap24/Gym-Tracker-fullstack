@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-import "./ExerciseLibrary.css"; // Import your CSS file for styling
+import "./ExerciseLibrary.css";
 
 function ExerciseLibrary() {
   const { bodyPart } = useParams(); // Get bodyPart from URL parameters

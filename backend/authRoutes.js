@@ -10,7 +10,7 @@ router.post('/register', async (req, res) => {
         // Register user with email and password (using Firebase auth service)
         const user = await registerUser(email, password);
 
-        // Save additional information to your database (for user profile table/collection)
+        // Save additional information to  database (for user profile table/collection)
         await saveUserProfile(user.uid, { firstName, lastName, username, email });
 
         // Return success response

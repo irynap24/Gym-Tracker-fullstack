@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const workoutSchema = new mongoose.Schema({
     userId: {
         type: String,
-        required: true, // Required for logging workouts
+        required: true, // Required user id for logging workouts
     },
     exerciseType: {
         type: String,
@@ -25,7 +25,7 @@ const workoutSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-}, { collection: 'workouts' }); // Specify the collection name
+}, { collection: 'workouts' }); // the collection name
 
 const Workout = mongoose.model('Workout', workoutSchema);
 export default Workout;
