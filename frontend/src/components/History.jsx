@@ -31,11 +31,22 @@ const History = () => {
   // Function to group workouts by date
   const groupWorkoutsByDate = (workouts) => {
     return workouts.reduce((acc, workout) => {
-      const date = new Date(workout.date).toLocaleDateString(); // Format date as needed
-      if (!acc[date]) {
-        acc[date] = [];
+      // Parse the date as UTC, adjust to the local time zone
+      const workoutDate = new Date(workout.date);
+      const localDate = new Date(
+        workoutDate.getTime() + workoutDate.getTimezoneOffset() * 60000
+      );
+
+      const formattedDate = localDate.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+
+      if (!acc[formattedDate]) {
+        acc[formattedDate] = [];
       }
-      acc[date].push(workout);
+      acc[formattedDate].push(workout);
       return acc;
     }, {});
   };

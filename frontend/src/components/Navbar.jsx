@@ -1,4 +1,3 @@
-// Navbar.jsx
 import React, { useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
@@ -7,6 +6,7 @@ import "./Navbar.css";
 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // State for hamburger menu
   const navigate = useNavigate(); // Hook for navigation
 
   useEffect(() => {
@@ -26,38 +26,59 @@ function Navbar() {
     }
   };
 
+  const toggleMenu = () => {
+    setIsOpen(!isOpen); // Toggle hamburger menu open/close state
+  };
+
   return (
     <nav className="navbar">
-      <h1>Gym Workout Tracker</h1>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        {isLoggedIn && (
-          <>
-            <li>
-              <Link to="/workouts">Log Workout</Link>
-            </li>
-            <li>
-              <Link to="/exercises">Exercises</Link>
-            </li>
-            <li>
-              <Link to="/history">History</Link>
-            </li>
-          </>
-        )}
-        {isLoggedIn ? (
+      <h1 className="navbar-logo">Gym Workout Tracker</h1>
+      <div className={`nav-links ${isOpen ? "open" : ""}`}>
+        <ul>
           <li>
-            <button className="logout-btn" onClick={handleLogout}>
-              Logout
-            </button>
+            <Link to="/" onClick={toggleMenu}>
+              Home
+            </Link>
           </li>
-        ) : (
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-        )}
-      </ul>
+          {isLoggedIn && (
+            <>
+              <li>
+                <Link to="/workouts" onClick={toggleMenu}>
+                  Log Workout
+                </Link>
+              </li>
+              <li>
+                <Link to="/exercises" onClick={toggleMenu}>
+                  Exercises
+                </Link>
+              </li>
+              <li>
+                <Link to="/history" onClick={toggleMenu}>
+                  History
+                </Link>
+              </li>
+            </>
+          )}
+          {isLoggedIn ? (
+            <li>
+              <button className="logout-btn" onClick={handleLogout}>
+                Logout
+              </button>
+            </li>
+          ) : (
+            <li>
+              <Link to="/login" onClick={toggleMenu}>
+                Login
+              </Link>
+            </li>
+          )}
+        </ul>
+      </div>
+      <div className="hamburger" onClick={toggleMenu}>
+        <span className={`bar ${isOpen ? "open" : ""}`}></span>
+        <span className={`bar ${isOpen ? "open" : ""}`}></span>
+        <span className={`bar ${isOpen ? "open" : ""}`}></span>
+      </div>
     </nav>
   );
 }
