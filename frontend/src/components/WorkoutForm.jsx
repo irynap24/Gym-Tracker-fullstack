@@ -15,9 +15,17 @@ function WorkoutForm() {
     reps: "",
     weight: "",
     minutes: "",
-    date: new Date().toISOString().split("T")[0], // Set default date to YYYY-MM-DD format
+    date: formatDateToLocal(new Date()), // Use local date formatting function
   });
   const [showSummary, setShowSummary] = useState(false);
+
+  // Function to format the date in MM/DD/YYYY
+  function formatDateToLocal(date) {
+    const offsetDate = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60000
+    );
+    return offsetDate.toISOString().split("T")[0];
+  }
 
   // Fetch body parts from the API
   useEffect(() => {
@@ -33,7 +41,6 @@ function WorkoutForm() {
           }
         );
         setBodyParts(response.data);
-        console.log("Fetched body parts:", response.data);
       } catch (error) {
         console.error("Error fetching body parts:", error);
       }
@@ -56,7 +63,6 @@ function WorkoutForm() {
             }
           );
           setExercises(response.data);
-          console.log("Fetched exercises for", selectedBodyPart, response.data);
         } catch (error) {
           console.error("Error fetching exercises:", error);
         }
@@ -78,7 +84,6 @@ function WorkoutForm() {
         bodyPart: selectedBodyPart,
       };
       setWorkouts((prev) => [...prev, newWorkout]);
-      console.log("Added workout:", newWorkout);
       clearInputs();
     }
   };
@@ -90,7 +95,7 @@ function WorkoutForm() {
       reps: "",
       weight: "",
       minutes: "",
-      date: new Date().toISOString().split("T")[0], // Reset to today's date
+      date: formatDateToLocal(new Date()), // Reset to local today's date
     });
   };
 
@@ -114,7 +119,6 @@ function WorkoutForm() {
         };
 
         await axios.post("http://localhost:5000/api/workouts", workoutPayload);
-        console.log("Logged workout:", workoutPayload);
       }
 
       setShowSummary(true);
@@ -226,9 +230,12 @@ function WorkoutForm() {
                 {workout.minutes && ` (${workout.minutes} minutes)`}
                 <span>
                   {" "}
-                  on {new Date(workout.date).toLocaleDateString("en-US")}
+                  on{" "}
+                  {new Date(workout.date).toLocaleDateString("en-US", {
+                    timeZone: "UTC",
+                  })}
                 </span>{" "}
-                {/* Show date in US format */}
+                {/* Fix date display */}
               </li>
             ))}
           </ul>
