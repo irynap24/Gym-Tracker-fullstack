@@ -3,15 +3,29 @@ import axios from 'axios';
 
 const router = express.Router();
 
-// Fetch all exercises
+// Fetch and return random exercises
 router.get('/exercises', async (req, res) => {
     try {
+        // Fetch all exercises from the Wger API
         const response = await axios.get('https://wger.de/api/v2/exercise/?language=2', {
             headers: {
                 Accept: 'application/json',
             },
         });
-        res.json(response.data.results); // Send the exercise data back to the client
+
+        // Get the full list of exercises
+        const exercises = response.data.results;
+
+        // Helper function to get random elements from an array
+        const getRandomExercises = (arr, num) => {
+            const shuffled = arr.sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, num); // Return 'num' random exercises
+        };
+
+        // Get a random subset of exercises (for example, return 5 random exercises)
+        const randomExercises = getRandomExercises(exercises,);
+
+        res.json(randomExercises); // Send the random exercises to the client
     } catch (error) {
         console.error('Error fetching exercises:', error);
         res.status(500).json({ error: 'Failed to fetch exercises' });
