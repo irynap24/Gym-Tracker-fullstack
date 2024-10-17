@@ -1,0 +1,30 @@
+.footer {
+  display: flex;
+  justify-content: space-around; /* Evenly space the links */
+  background-color: #fec89a;
+  padding: 10px 0;
+  position: sticky;
+  bottom: 0; /* Stick to the bottom of the viewport */
+  width: 100vw; /* Ensure it spans the entire viewport width */
+  z-index: 1000; /* Make sure it's above other content */
+  box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+.footer-links {
+  display: flex; /* Flexbox for horizontal layout */
+  justify-content: center; /* Center the links */
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  padding: 10px; /* Padding around links */
+  transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.footer-links a:hover {
+  background-color: #ffd7ba; /* Change background on hover */
+  border-radius: 5px; /* Rounded corners on hover */
+}

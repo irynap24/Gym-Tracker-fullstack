@@ -1,12 +1,14 @@
-// Layout.jsx
 import React from "react";
-import Navbar from "./Navbar"; // Adjust the import path if necessary
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import "./Layout.css";
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <div className="layout">
       <Navbar />
-      <main style={{ marginTop: "60px" }}> {children}</main>
+      <main className="main-content">{children}</main>
+      <Footer />
     </div>
   );
 };

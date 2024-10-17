@@ -1,4 +1,4 @@
-//Displays a list of logged workouts, possibly with options to edit or delete entries.
+//Displays a list of logged workouts, with options to edit or delete entries.
 
 import React from "react";
 

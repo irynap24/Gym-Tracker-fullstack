@@ -19,3 +19,12 @@ The Gym Workout Tracking App is a full-stack application designed to help users 
 - **Database**: MongoDB
 - **Authentication**: Firebase Authentication
 - **APIs**: RapidAPI's ExerciseDB
+
+## Future Enhancements
+
+Add timer to time the workout
+Rest timer
+Warm up sets
+Dynamic/Static stretch recommendations based on workout
+Pre-made workout templates and ability to create own
+Workout progress, show previous stats on specific exercies. eg. prior weight, reps, sets, show increase in weight, reps, volume.
