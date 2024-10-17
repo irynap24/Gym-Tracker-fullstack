@@ -68,6 +68,29 @@ router.delete("/:id", async (req, res) => {
         res.status(500).json({ error: "Server error: " + err.message });
     }
 });
+// Route to update a workout by ID
+router.put("/:id", async (req, res) => {
+    const { id } = req.params;
+    const { sets, reps, weight, date } = req.body;
+
+    try {
+        const updatedWorkout = await Workout.findByIdAndUpdate(
+            id,
+            { sets, reps, weight, date },
+            { new: true }
+        );
+
+        if (!updatedWorkout) {
+            return res.status(404).json({ error: "Workout not found" });
+        }
+
+        res.json(updatedWorkout); // Return the updated workout
+    } catch (err) {
+        console.error("Error updating workout:", err);
+        res.status(500).json({ error: "Server error: " + err.message });
+    }
+});
+
 
 // Export the router for use in other parts of the application
 export default router;

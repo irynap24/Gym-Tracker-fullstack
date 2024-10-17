@@ -14,6 +14,7 @@ const History = () => {
     reps: "",
     weight: "",
   });
+  const [expandedDates, setExpandedDates] = useState({}); // For expanding dates
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -34,17 +35,15 @@ const History = () => {
     };
 
     fetchWorkouts();
-  }, [userId]); // Dependency array includes userId
+  }, [userId]);
 
   // Function to group workouts by date
   const groupWorkoutsByDate = (workouts) => {
     return workouts.reduce((acc, workout) => {
-      // Parse the date as UTC, adjust to the local time zone
       const workoutDate = new Date(workout.date);
       const localDate = new Date(
         workoutDate.getTime() + workoutDate.getTimezoneOffset() * 60000
       );
-
       const formattedDate = localDate.toLocaleDateString("en-US", {
         year: "numeric",
         month: "2-digit",
@@ -61,10 +60,7 @@ const History = () => {
 
   const groupedWorkouts = groupWorkoutsByDate(workouts);
 
-  // State to manage expanded workouts for each date
-  const [expandedDates, setExpandedDates] = useState({});
-
-  // Function to toggle expanded workouts for a specific date
+  // Toggle expanded workouts for a specific date
   const toggleExpand = (date) => {
     setExpandedDates((prev) => ({
       ...prev,
@@ -86,10 +82,16 @@ const History = () => {
   const handleEditWorkout = (workout) => {
     setIsEditing(true);
     setEditingWorkout(workout);
+
+    // Normalize the workout data from both sources
+    const sets = workout.sets || ""; // Wger API might not have sets, so provide a fallback
+    const reps = workout.reps || ""; // Same for reps
+    const weight = workout.weight || ""; // Same for weight
+
     setUpdateData({
-      sets: workout.sets || "",
-      reps: workout.reps || "",
-      weight: workout.weight || "",
+      sets,
+      reps,
+      weight,
     });
   };
 
@@ -107,11 +109,13 @@ const History = () => {
         `http://localhost:5000/api/workouts/${editingWorkout._id}`,
         updatedWorkout
       );
+
       setWorkouts(
         workouts.map((workout) =>
           workout._id === editingWorkout._id ? updatedWorkout : workout
         )
       );
+
       setIsEditing(false);
       setEditingWorkout(null);
       setUpdateData({
@@ -138,7 +142,7 @@ const History = () => {
               <ul className="workout-list">
                 {workouts.slice(0, 4).map((workout) => (
                   <li key={workout._id} className="workout-item">
-                    {isEditing && editingWorkout._id === workout._id ? (
+                    {isEditing && editingWorkout?._id === workout._id ? (
                       <div className="edit-workout">
                         <input
                           type="number"
