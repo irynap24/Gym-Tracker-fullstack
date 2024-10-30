@@ -2,33 +2,34 @@ import express from 'express';
 import axios from 'axios';
 
 const router = express.Router();
-
-// Fetch and return random exercises
-router.get('/exercises', async (req, res) => {
+const NINJAS_API_KEY = process.env.NINJAS_API_KEY;
+// Route to get all workouts for a user (this also serves as the history route)
+router.get("/exercises", async (req, res) => {
     try {
-        // Fetch all exercises from the Wger API
-        const response = await axios.get('https://wger.de/api/v2/exercise/?language=2', {
-            headers: {
-                Accept: 'application/json',
-            },
-        });
+        // Fetch all exercises from the Ninjas Exercise API
+        const response = await axios.get('https://api.api-ninjas.com/v1/exercises',
+            {
+                headers: {
+                    'X-Api-Key': NINJAS_API_KEY
+                }
+            })
 
         // Get the full list of exercises
-        const exercises = response.data.results;
+        const exercises = response.data;
 
         // Helper function to get random elements from an array
-        const getRandomExercises = (arr, num) => {
+        const getRandomExercises = (arr, num = 5) => {
             const shuffled = arr.sort(() => 0.5 - Math.random());
             return shuffled.slice(0, num); // Return 'num' random exercises
-        };
+        }
 
-        // Get a random subset of exercises (for example, return 5 random exercises)
-        const randomExercises = getRandomExercises(exercises,);
+        // Get a random subset of exercises
+        const randomExercises = getRandomExercises(exercises, 5)
+        res.json(randomExercises) // Sends the random exercises to the client
 
-        res.json(randomExercises); // Send the random exercises to the client
     } catch (error) {
-        console.error('Error fetching exercises:', error);
-        res.status(500).json({ error: 'Failed to fetch exercises' });
+        console.error("Error fetching exercises:", error)
+        res.status(500).json({ error: "Failed to fetch exercises" })
     }
 });
 
@@ -37,10 +38,10 @@ router.get('/exercises/bodyPart/:bodyPart', async (req, res) => {
     const { bodyPart } = req.params;
 
     try {
-        // Fetch exercises by body part from Wger API
-        const response = await axios.get(`https://wger.de/api/v2/exercise/?language=2&category=${bodyPart}`, {
+        // Fetch exercises by body part fNinja Exercise API
+        const response = await axios.get(`https://api.api-ninjas.com/v1/exercises?muscle=${bodyPart}`, {
             headers: {
-                Accept: 'application/json',
+                'X-Api-Key': NINJAS_API_KEY
             },
         });
 
@@ -56,21 +57,5 @@ router.get('/exercises/bodyPart/:bodyPart', async (req, res) => {
     }
 });
 
-// Fetch exercise details by ID
-router.get('/exercises/:id', async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const response = await axios.get(`https://wger.de/api/v2/exercise/${id}/`, {
-            headers: {
-                Accept: 'application/json',
-            },
-        });
-        res.json(response.data); // Send exercise details back to the client
-    } catch (error) {
-        console.error('Error fetching exercise details:', error);
-        res.status(500).json({ error: 'Failed to fetch exercise details' });
-    }
-});
 
 export default router;

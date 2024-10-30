@@ -6,7 +6,7 @@ import "./ExerciseLibrary.css";
 function ExerciseLibrary() {
   const { bodyPart } = useParams(); // Get bodyPart from URL parameters
   const [exercises, setExercises] = useState([]); // State to store exercises
-  const [loading, setLoading] = useState(true); // State to manage loading
+  // const [loading, setLoading] = useState(true); // State to manage loading
   const [categories, setCategories] = useState([]); // State to store exercise categories
 
   // Updated Body Parts List
