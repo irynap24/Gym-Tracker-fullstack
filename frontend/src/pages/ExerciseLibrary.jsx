@@ -7,78 +7,64 @@ function ExerciseLibrary() {
   const { bodyPart } = useParams(); // Get bodyPart from URL parameters
   const [exercises, setExercises] = useState([]); // State to store exercises
   // const [loading, setLoading] = useState(true); // State to manage loading
-  const [categories, setCategories] = useState([]); // State to store exercise categories
+  // const [categories, setCategories] = useState([]); // State to store exercise categories
+  const apiKey = process.env.REACT_APP_NINJAS_API_KEY;
 
-  // Updated Body Parts List
+  // Updated Body Parts List for Ninja Exercise API
   const bodyParts = [
-    { name: "abs", id: 10 },
-    { name: "arms", id: 8 },
-    { name: "back", id: 12 },
-    { name: "calves", id: 14 },
-    { name: "cardio", id: 15 },
-    { name: "chest", id: 11 },
-    { name: "legs", id: 9 },
-    { name: "shoulders", id: 13 },
-  ]; // Body parts list with IDs
+    { name: "abdominals", display: "Core/Ab Work" },
+    { name: "biceps", display: "Arms:Biceps" },
+    { name: "back", display: "Back" },
+    { name: "calves", diplay: "Calves" },
+    { name: "cardio", display: "Cardio" },
+    { name: "chest", display: "Chest" },
+    { name: "glutes", display: "Legs" },
+    { name: "shoulders", display: "Shoulders" },
+  ];
 
   // Fetch exercise categories from the API
-  const fetchCategories = async () => {
+  // const fetchCategories = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "https://wger.de/api/v2/exercisecategory/"
+  //     );
+  //     if (Array.isArray(response.data.results)) {
+  //       setCategories(response.data.results);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching exercise categories:", error);
+  //   }
+  // };
+
+  // Fetch exercises from the Ninja API based on the body part
+  const fetchExercises = async (part) => {
+    setLoading(true); // Start loading
     try {
       const response = await axios.get(
-        "https://wger.de/api/v2/exercisecategory/"
-      );
-      if (Array.isArray(response.data.results)) {
-        setCategories(response.data.results);
-      }
-    } catch (error) {
-      console.error("Error fetching exercise categories:", error);
+        `https://api.api-ninjas.com/v1/exercises`,
+        params: {muscle:part},
+        headers:{
+          "X-Api-Key":apiKey
+        });
+
+        if (Array.isArray(response.data)){
+          setExercises(response.data); // Set exercises if response is an array
+        }
+        else{
+          console.error("Unexpected response structure:", response.data);
+          setExercises([]); // Reset exercises if the response is not an array
+        }
     }
-  };
-
-  // Fetch exercises from the Wger API based on the body part ID
-  const fetchExercises = async (partId) => {
-    try {
-      const response = await axios.get(
-        `https://wger.de/api/v2/exercise/?category=${partId}&language=2`
-      );
-
-      if (Array.isArray(response.data.results)) {
-        const exercisesWithImages = await Promise.all(
-          response.data.results.map(async (exercise) => {
-            const imageResponse = await axios.get(
-              `https://wger.de/api/v2/exerciseimage/?exercise=${exercise.id}`
-            );
-            const image =
-              imageResponse.data.results.length > 0
-                ? imageResponse.data.results[0].image
-                : null; // Get the first image for the exercise
-            return {
-              ...exercise,
-              image, // Add the image URL to the exercise data
-            };
-          })
-        );
-        setExercises(exercisesWithImages); // Set exercises if response is an array
-      } else {
-        console.error("Unexpected response structure:", response.data);
-        setExercises([]); // Reset exercises if the response is not an array
-      }
-    } catch (error) {
-      console.error("Error fetching exercises:", error);
-      setExercises([]); // Reset exercises on error
-    } finally {
-      setLoading(false); // Stop loading
-    }
-  };
-
+        catch(error){
+          console.error("Error fetching exercises:", error);
+          setExercises([]); // Reset exericises on error
+        }
+        finally{
+          setLoading(false); // Stop loading
+        }
   useEffect(() => {
-    fetchCategories(); // Fetch exercise categories on mount
-  }, []);
-
-  useEffect(() => {
-    const selectedBodyPart = bodyParts.find((part) => part.name === bodyPart);
-    if (selectedBodyPart) {
-      fetchExercises(selectedBodyPart.id); // Fetch exercises based on selected bodyPart ID
+    if (bodyPart) {
+      fetchExercises(bodyPart); // Fetch exercises based on selected bodyPart 
     }
   }, [bodyPart]); // Re-run if bodyPart changes
 
