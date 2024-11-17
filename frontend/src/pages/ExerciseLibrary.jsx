@@ -1,84 +1,102 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link, useParams } from "react-router-dom";
 import "./ExerciseLibrary.css";
 
 function ExerciseLibrary() {
-  const [exercises, setExercises] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const apiKey = import.meta.env.VITE_NINJAS_API_KEY;
-
-  // Updated Body Parts List for Ninja Exercise API
+  const { bodyPart } = useParams(); // Get bodyPart from URL parameters
+  const [exercises, setExercises] = useState([]); // State to store exercises
+  const [loading, setLoading] = useState(true); // State to manage loading
   const bodyParts = [
-    { name: ["abdominals"], display: "Abs" },
-    { name: ["biceps", "forearms", "triceps"], display: "Arms" },
-    {
-      name: ["lower_back", "middle_back", "neck", "traps", "lats"],
-      display: "Back",
-    },
-    {
-      name: ["calves", "quadriceps", "hamstrings", "abductors", "adductors"],
-      display: "Legs & Glutes",
-    },
-    { name: "chest", display: "Chest" },
-    { name: "shoulders", display: "Shoulders" },
-  ];
-  // Fetch exercises for multiple muscle names if needed
-  const fetchExercises = async (muscleGroup) => {
-    setLoading(true);
-    setExercises([]); // Clear previous exercises
+    "back",
+    "cardio",
+    "chest",
+    "lower arms",
+    "lower legs",
+    "neck",
+    "shoulders",
+    "upper arms",
+    "upper legs",
+    "waist",
+  ]; // Body parts list
 
+  // Fetch exercises from the API based on the body part or all exercises
+  const fetchExercises = async (part) => {
+    setLoading(true); // Set loading state to true when fetching starts
     try {
-      const allExercises = await Promise.all(
-        muscleGroup.map(async (muscle) => {
-          const response = await axios.get(
-            `https://api.api-ninjas.com/v1/exercises`,
-            {
-              params: { muscle },
-              headers: { "X-Api-Key": apiKey },
-            }
-          );
-          return Array.isArray(response.data) ? response.data : [];
-        })
-      );
-      // Flatten results and set exercises
-      setExercises(allExercises.flat());
+      const endpoint = part
+        ? `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${part}`
+        : `https://exercisedb.p.rapidapi.com/exercises`;
+
+      const response = await axios.get(endpoint, {
+        headers: {
+          "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+          "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY,
+        },
+      });
+
+      if (Array.isArray(response.data)) {
+        setExercises(response.data); // Set exercises if response is an array
+      } else {
+        console.error("Unexpected response structure:", response.data);
+        setExercises([]); // Reset exercises if the response is not an array
+      }
     } catch (error) {
       console.error("Error fetching exercises:", error);
-      setExercises([]);
+      setExercises([]); // Reset exercises on error
     } finally {
-      setLoading(false);
+      setLoading(false); // Stop loading
     }
   };
 
+  useEffect(() => {
+    // Call fetchExercises only when the bodyPart changes
+    if (bodyPart) {
+      fetchExercises(bodyPart); // Fetch exercises based on bodyPart from the URL
+    } else {
+      fetchExercises(); // Fetch all exercises when no bodyPart is specified
+    }
+  }, [bodyPart]); // Dependency on bodyPart ensures it runs when bodyPart changes
+
+  // Render the component
   return (
-    <div className="exercise-library">
-      {exercises.length === 0 ? (
-        <div className="landing-page">
-          <h1>Welcome to the Exercise Library</h1>
-          <p>Select a muscle group to see targeted exercises.</p>
-          <div className="body-parts">
-            {bodyParts.map((part) => (
-              <button
-                key={part.display}
-                onClick={() => fetchExercises(part.name)}
-                className="body-part-link"
-              >
-                {part.display}
-              </button>
-            ))}
-          </div>
-        </div>
-      ) : loading ? (
+    <div>
+      <h1>
+        {bodyPart
+          ? `${bodyPart.charAt(0).toUpperCase() + bodyPart.slice(1)} Exercises`
+          : "All Exercises"}
+      </h1>
+
+      {/* Body Parts Links */}
+      <div className="body-parts">
+        {bodyParts.map((part) => (
+          <Link key={part} to={`/exercises/${part}`} className="body-part-link">
+            {part.charAt(0).toUpperCase() + part.slice(1)}
+          </Link>
+        ))}
+      </div>
+
+      {loading ? (
         <p>Loading exercises...</p>
-      ) : (
+      ) : exercises.length > 0 ? (
         <div className="exercise-grid">
           {exercises.map((exercise) => (
-            <div key={exercise.id} className="exercise-card">
+            <div
+              key={exercise.id || exercise.exerciseId}
+              className="exercise-card"
+            >
+              <img
+                src={exercise.gifUrl}
+                alt={exercise.name}
+                className="exercise-image"
+              />
               <h2>{exercise.name}</h2>
               <p>{exercise.equipment || "No equipment specified"}</p>
             </div>
           ))}
         </div>
+      ) : (
+        <p>No exercises found.</p>
       )}
     </div>
   );
